@@ -1,6 +1,6 @@
 package ru.krizhanovsky.aston.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -8,10 +8,9 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name = "Transactions")
 public class Transaction {
     @Id

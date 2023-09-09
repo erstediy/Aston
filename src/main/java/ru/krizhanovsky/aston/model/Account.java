@@ -1,6 +1,6 @@
 package ru.krizhanovsky.aston.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -16,7 +16,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AccountNumber")
-    private final int accountNumber;
+    private final Long accountNumber;
 
     @Column(name = "Name")
     private String name;
