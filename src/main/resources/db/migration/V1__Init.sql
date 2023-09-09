@@ -1,6 +1,6 @@
 -- Создаем таблицу для хранения банковских счетов
 CREATE TABLE IF NOT EXISTS Accounts (
-    AccountNumber INT AUTO_INCREMENT PRIMARY KEY,
+    AccountNumber SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     PIN_HASH VARCHAR(60) NOT NULL,
     Balance DECIMAL(10, 2) DEFAULT 0.00
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS Accounts (
 
 -- Создаем таблицу для хранения операций по счетам (если нужно)
 CREATE TABLE IF NOT EXISTS Transactions (
-    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
+    TransactionID UUID PRIMARY KEY,
     AccountNumber INT NOT NULL,
     Amount DECIMAL(10, 2) NOT NULL,
     TransactionType VARCHAR(255) NOT NULL,

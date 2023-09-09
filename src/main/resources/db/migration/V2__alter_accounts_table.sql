@@ -1,0 +1,1 @@
+alter table Accounts rename pin_hash to pin;
