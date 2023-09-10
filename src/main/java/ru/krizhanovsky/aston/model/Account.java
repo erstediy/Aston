@@ -1,6 +1,7 @@
 package ru.krizhanovsky.aston.model;
 
 import javax.persistence.*;
+
 import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
 import ru.krizhanovsky.aston.exception.InsufficientFundsException;
@@ -30,10 +31,11 @@ public class Account {
 
     /**
      * Изменить состояние баланса
+     *
      * @param amount сумма изменения
      */
     public void editBalance(BigDecimal amount) throws InsufficientFundsException {
-        if(balance.add(amount).compareTo(BigDecimal.ZERO) < 0) {
+        if (balance.add(amount).compareTo(BigDecimal.ZERO) < 0) {
             throw new InsufficientFundsException();
         }
         balance = balance.add(amount);
@@ -41,6 +43,7 @@ public class Account {
 
     /**
      * Установить ПИН-код
+     *
      * @param pin ПИН-код
      */
     public void setPin(String pin) {
@@ -49,6 +52,7 @@ public class Account {
 
     /**
      * Проверить ПИН-код
+     *
      * @param inputPin ПИН-код
      * @return true - соответствует, false - несоответствует
      */
@@ -58,6 +62,7 @@ public class Account {
 
     /**
      * Установить имя
+     *
      * @param name Имя
      */
     public void setName(String name) {

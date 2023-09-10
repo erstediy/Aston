@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @Setter
 @RequiredArgsConstructor
 public class TransactionRequest {
-        private BigDecimal amount;
-        private TransactionType type;
-        private String pin;
-        private Long accountNumber;
+    private BigDecimal amount;
+    private TransactionType type;
+    private String pin;
+    private Long accountNumber;
 }

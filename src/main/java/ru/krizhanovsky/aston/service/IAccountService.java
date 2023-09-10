@@ -1,6 +1,8 @@
 package ru.krizhanovsky.aston.service;
 
+import ru.krizhanovsky.aston.dto.AccountInfo;
 import ru.krizhanovsky.aston.exception.AccountNotFoundException;
+import ru.krizhanovsky.aston.exception.IncorrectPinException;
 import ru.krizhanovsky.aston.model.Account;
 
 import java.util.List;
@@ -13,5 +15,5 @@ public interface IAccountService {
 
     Account getByAccountNumber(Long accountNumber) throws AccountNotFoundException;
 
-    Long add(Account account);
+    Long add(AccountInfo account) throws IncorrectPinException;
 }

@@ -1,11 +1,14 @@
 package ru.krizhanovsky.aston.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class AccountInfo {
     private String name;
     private BigDecimal balance;
+    private String pin;
 }
