@@ -3,6 +3,7 @@ package ru.krizhanovsky.aston.model;
 import javax.persistence.*;
 import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
+import ru.krizhanovsky.aston.exception.InsufficientFundsException;
 
 import java.math.BigDecimal;
 
@@ -18,7 +19,7 @@ public class Account {
     @Column(name = "AccountNumber")
     private final Long accountNumber;
 
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = false)
     private String name;
 
     @Column(name = "PIN", nullable = false)
@@ -31,11 +32,10 @@ public class Account {
      * Изменить состояние баланса
      * @param amount сумма изменения
      */
-    public void editBalance(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Отрицательное значение недопустимо");
+    public void editBalance(BigDecimal amount) throws InsufficientFundsException {
+        if(balance.add(amount).compareTo(BigDecimal.ZERO) < 0) {
+            throw new InsufficientFundsException();
         }
-
         balance = balance.add(amount);
     }
 

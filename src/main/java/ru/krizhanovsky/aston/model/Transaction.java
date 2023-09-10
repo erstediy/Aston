@@ -18,7 +18,7 @@ public class Transaction {
     private UUID id;
 
     @Column(name = "AccountNumber")
-    private Integer accountNumber;
+    private Long accountNumber;
 
     @Column(name = "Amount")
     private BigDecimal amount;

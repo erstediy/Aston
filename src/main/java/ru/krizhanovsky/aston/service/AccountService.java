@@ -2,6 +2,7 @@ package ru.krizhanovsky.aston.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.krizhanovsky.aston.exception.AccountNotFoundException;
 import ru.krizhanovsky.aston.model.Account;
 import ru.krizhanovsky.aston.repository.AccountRepository;
 
@@ -25,7 +26,7 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public Account getByAccountNumber(Long accountNumber) {
+    public Account getByAccountNumber(Long accountNumber) throws AccountNotFoundException {
         Optional<Account> account = accountRepository.findById(accountNumber);
         return account.orElse(null);
     }
