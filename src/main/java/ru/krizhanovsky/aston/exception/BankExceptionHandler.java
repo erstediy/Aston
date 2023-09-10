@@ -15,7 +15,8 @@ public class BankExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(ex.getMessage());
     }
 
-    @ExceptionHandler(value = {IncorrectPinException.class, InsufficientFundsException.class})
+    @ExceptionHandler(value = {IncorrectPinException.class,
+            InsufficientFundsException.class, IncorrectAccountNumberException.class})
     public ResponseEntity<Object> handleTransactionExceptions(RuntimeException ex) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(status).body(ex.getMessage());

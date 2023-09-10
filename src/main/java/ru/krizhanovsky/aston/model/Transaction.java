@@ -17,17 +17,20 @@ public class Transaction {
     @Column(name = "TransactionID")
     private UUID id;
 
-    @Column(name = "AccountNumber")
-    private Long accountNumber;
+    @Column(name = "Account_From_Number")
+    private String accountFromNumber;
+
+    @Column(name = "Account_To_Number")
+    private String accountToNumber;
 
     @Column(name = "Amount")
     private BigDecimal amount;
 
-    @Column(name = "TransactionType")
+    @Column(name = "Transaction_Type")
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
-    @Column(name = "TransactionDate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "Transaction_Date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date transactionDate;
 }

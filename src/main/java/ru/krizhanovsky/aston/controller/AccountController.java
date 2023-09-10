@@ -21,7 +21,7 @@ public class AccountController {
 
     @PostMapping()
     @ApiOperation("Create new bank account")
-    public ResponseEntity<Long> addNewAccount(@RequestBody AccountInfo account) {
+    public ResponseEntity<String> addNewAccount(@RequestBody AccountInfo account) {
         return ResponseEntity.ok(accountService.add(account));
     }
 
@@ -30,16 +30,30 @@ public class AccountController {
     public ResponseEntity<List<AccountInfo>> getAllAccounts() {
         List<Account> accounts = accountService.getAll();
 
-        List<AccountInfo> accountsInfo = accounts.stream()
-                .map(account -> new AccountInfo(account.getName(), account.getBalance(), null))
-                .collect(Collectors.toList());
+        List<AccountInfo> accountsInfo = getAccountInfos(accounts);
 
         return ResponseEntity.ok(accountsInfo);
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation("Get bank account by account number(id)")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-        return ResponseEntity.ok(accountService.getByAccountNumber(id));
+    @GetMapping("/{accountNumber}")
+    @ApiOperation("Get bank account by account number")
+    public ResponseEntity<Account> getAccountById(@PathVariable String accountNumber) {
+        return ResponseEntity.ok(accountService.getByAccountNumber(accountNumber));
+    }
+
+    @GetMapping("/maxBalance")
+    @ApiOperation("Get bank account with max balance")
+    public ResponseEntity<List<AccountInfo>> getAccountWithMaxBalance() {
+        List<Account> accounts = accountService.getAccountWithMaxBalance();
+
+        List<AccountInfo> accountsInfo = getAccountInfos(accounts);
+
+        return ResponseEntity.ok(accountsInfo);
+    }
+
+    private List<AccountInfo> getAccountInfos(List<Account> accounts) {
+        return accounts.stream()
+                .map(account -> new AccountInfo(account.getName(), account.getBalance(), null))
+                .collect(Collectors.toList());
     }
 }

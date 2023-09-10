@@ -7,6 +7,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import ru.krizhanovsky.aston.exception.InsufficientFundsException;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,14 +18,16 @@ import java.math.BigDecimal;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    private UUID id;
+
     @Column(name = "AccountNumber")
-    private final Long accountNumber;
+    private final String accountNumber;
 
     @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "PIN", nullable = false)
+    @Column(name = "PIN_HASH", nullable = false)
     private String pin;
 
     @Column(name = "Balance", columnDefinition = "DECIMAL(10, 2) DEFAULT 0.00")
@@ -47,17 +51,16 @@ public class Account {
      * @param pin ПИН-код
      */
     public void setPin(String pin) {
-        this.pin = BCrypt.hashpw(pin, BCrypt.gensalt());
+        this.pin = pin;
     }
 
     /**
      * Проверить ПИН-код
      *
-     * @param inputPin ПИН-код
      * @return true - соответствует, false - несоответствует
      */
-    public boolean checkPin(String inputPin) {
-        return BCrypt.checkpw(inputPin, pin);
+    public String getPin() {
+        return pin;
     }
 
     /**
@@ -67,6 +70,21 @@ public class Account {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    /**
+     * Конструктор
+     *
+     * @param accountNumber Номер лицевого счёта
+     * @param name          Имя
+     * @param pin           ПИН-код
+     */
+    public Account(String accountNumber, String name, String pin) {
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.pin = pin;
+        this.balance = new BigDecimal(0);
     }
 
 }

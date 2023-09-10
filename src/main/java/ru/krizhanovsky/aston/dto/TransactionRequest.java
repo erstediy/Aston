@@ -1,6 +1,5 @@
 package ru.krizhanovsky.aston.dto;
 
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,5 +14,6 @@ public class TransactionRequest {
     private BigDecimal amount;
     private TransactionType type;
     private String pin;
-    private Long accountNumber;
+    private String accountFromNumber;
+    private String accountToNumber;
 }
