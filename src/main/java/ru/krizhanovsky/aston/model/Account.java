@@ -36,7 +36,7 @@ public class Account {
      */
     public void editBalance(BigDecimal amount) throws InsufficientFundsException {
         if (balance.add(amount).compareTo(BigDecimal.ZERO) < 0) {
-            throw new InsufficientFundsException();
+            throw new InsufficientFundsException("Отрицательный баланс недопустим");
         }
         balance = balance.add(amount);
     }

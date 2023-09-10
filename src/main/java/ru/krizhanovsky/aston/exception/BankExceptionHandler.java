@@ -11,14 +11,14 @@ public class BankExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<Object> handleAccountNotFoundException(AccountNotFoundException ex) {
-        return ResponseEntity.notFound().build();
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        return ResponseEntity.status(status).body(ex.getMessage());
     }
 
     @ExceptionHandler(value = {IncorrectPinException.class, InsufficientFundsException.class})
     public ResponseEntity<Object> handleTransactionExceptions(RuntimeException ex) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        String message = "Операция не удалась: " + ex.getMessage();
-        return ResponseEntity.status(status).body(message);
+        return ResponseEntity.status(status).body(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

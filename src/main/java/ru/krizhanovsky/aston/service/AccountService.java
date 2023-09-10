@@ -36,7 +36,7 @@ public class AccountService implements IAccountService {
         if (account.isPresent()) {
             return account.get();
         } else {
-            throw new AccountNotFoundException();
+            throw new AccountNotFoundException(String.format("Лицевой счёт %1$s не найден", accountNumber));
         }
     }
 
@@ -44,7 +44,7 @@ public class AccountService implements IAccountService {
     public Long add(AccountInfo accountInfo) throws IncorrectPinException {
         String accountPin = accountInfo.getPin();
         if (accountPin == null || accountPin.isBlank() || accountPin.length() != 4) {
-            throw new IncorrectPinException();
+            throw new IncorrectPinException(String.format("Некорректный ПИН-код: %1$s", accountPin));
         }
         Account account = new Account();
         account.setPin(accountPin);
