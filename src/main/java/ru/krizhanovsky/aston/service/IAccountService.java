@@ -15,7 +15,7 @@ public interface IAccountService {
 
     Account getByAccountNumber(String accountNumber) throws AccountNotFoundException;
 
-    String add(AccountInfo account) throws IncorrectPinException;
+    Account add(AccountInfo account) throws IncorrectPinException;
 
     List<Account> getAccountWithMaxBalance() throws AccountNotFoundException;
 }

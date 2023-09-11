@@ -13,7 +13,7 @@ import ru.krizhanovsky.aston.repository.AccountRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -48,15 +48,15 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public String add(AccountInfo accountInfo) throws IncorrectPinException {
+    public Account add(AccountInfo accountInfo) throws IncorrectPinException {
         String accountPin = accountInfo.getPin();
         if (accountPin == null || accountPin.isBlank() || accountPin.length() != 4) {
             throw new IncorrectPinException(String.format("Некорректный ПИН-код: %1$s", accountPin));
         }
-        Account account = new Account(generateAccountNumber(),
-                accountInfo.getName(), BCrypt.hashpw(accountPin, BCrypt.gensalt()));
+        Account account = Account.builder().accountNumber(generateAccountNumber())
+                .name(accountInfo.getName()).pin(BCrypt.hashpw(accountPin, BCrypt.gensalt())).build();
         account.editBalance(accountInfo.getBalance());
-        return accountRepository.save(account).getAccountNumber();
+        return accountRepository.save(account);
     }
 
     @Override
@@ -75,18 +75,14 @@ public class AccountService implements IAccountService {
      * @return номер лицевого счёта
      */
     public static String generateAccountNumber() {
-        UUID uuid = UUID.randomUUID();
+        Random random = new Random();
+        StringBuilder accountNumber = new StringBuilder();
 
-        long mostSigBits = uuid.getMostSignificantBits();
-        long leastSigBits = uuid.getLeastSignificantBits();
-
-        long accountNumber = Math.abs(mostSigBits + leastSigBits);
-
-        String accountNumberString = String.valueOf(accountNumber);
-        if (accountNumberString.length() < 20) {
-            accountNumberString = "1" + accountNumberString;
+        for (int i = 0; i < 20; i++) {
+            int digit = random.nextInt(10);
+            accountNumber.append(digit);
         }
 
-        return accountNumberString;
+        return accountNumber.toString();
     }
 }

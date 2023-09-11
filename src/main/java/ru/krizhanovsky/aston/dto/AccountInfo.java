@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AccountInfo {
     private String name;
     private BigDecimal balance;

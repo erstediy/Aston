@@ -36,7 +36,7 @@ public class TransactionService implements ITransactionService {
             if (pin == null || pin.isBlank()) {
                 throw new IncorrectPinException("ПИН-код строго 4х значная комбинация цифр");
             }
-            if (BCrypt.checkpw(pin, accountFrom.getPin())) {
+            if (!BCrypt.checkpw(pin, accountFrom.getPin())) {
                 throw new IncorrectPinException(String.format("Неверный ПИН-код: %1$s", pin));
             }
             amount = amount.negate();

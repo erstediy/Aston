@@ -21,7 +21,7 @@ public class AccountController {
 
     @PostMapping()
     @ApiOperation("Create new bank account")
-    public ResponseEntity<String> addNewAccount(@RequestBody AccountInfo account) {
+    public ResponseEntity<Account> addNewAccount(@RequestBody AccountInfo account) {
         return ResponseEntity.ok(accountService.add(account));
     }
 

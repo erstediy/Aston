@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Accounts (
 CREATE TABLE IF NOT EXISTS Transactions (
     TransactionID UUID PRIMARY KEY,
     Account_From_Number VARCHAR(20) NOT NULL,
-    Account_To_Number VARCHAR(20) NOT NULL,
+    Account_To_Number VARCHAR(20),
     Amount DECIMAL(10, 2) NOT NULL,
     Transaction_Type VARCHAR(255) NOT NULL,
     Transaction_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
