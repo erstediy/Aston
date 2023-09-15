@@ -13,6 +13,7 @@ import ru.krizhanovsky.aston.model.Transaction;
 import ru.krizhanovsky.aston.model.TransactionType;
 import ru.krizhanovsky.aston.repository.TransactionRepository;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class TransactionService implements ITransactionService {
     private final IAccountService accountService;
 
     @Override
+    @Transactional
     public void processTransaction(TransactionRequest request) throws AccountNotFoundException,
             InsufficientFundsException, IncorrectPinException, IncorrectAccountNumberException {
 

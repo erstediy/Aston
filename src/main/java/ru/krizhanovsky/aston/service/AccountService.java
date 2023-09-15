@@ -27,7 +27,6 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    @Transactional
     public void update(Account account) throws AccountNotFoundException,
             IncorrectAccountNumberException {
         getByAccountNumber(account.getAccountNumber());
